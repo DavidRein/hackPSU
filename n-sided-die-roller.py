@@ -3,38 +3,39 @@ import tkinter
 import tkinter.messagebox as tkMessageBox
 from PIL import ImageTk , Image
 
-print("##n-Sided Dice Roller##")
 class Application(tkinter.Frame):
 
     def __init__(self, root = None):
         super().__init__(root)
-        self.result = 0
         self.root = root
-        self.pack()
+        self.grid()
         self.setWidgets()
 
     def setWidgets(self):
+
+        ## Roll Button
         self.rollButton = tkinter.Button(self.root,
                                     text = "Roll",
                                     command = lambda: self.executeRoll())
-        self.rollButton.pack()
+        self.rollButton.grid(row = 1, column = 0)
 
+        ## Die Image Label
         self.dieImage = Image.open("d20.png")
         self.dieGraphic = ImageTk.PhotoImage(self.dieImage)
         self.dieLabel = tkinter.Label(self.root,
                                       image = self.dieGraphic)
         self.dieLabel.image = self.dieGraphic
-        self.dieLabel.pack()
+        self.dieLabel.grid(row = 0, column = 0)
 
+        ## Result Text Label
         self.resultLabel = tkinter.Label(self.root,
-                                         text = str(self.result),
+                                         text = "...",
                                          anchor = "center")
-        self.resultLabel.pack()
+        self.resultLabel.grid(row = 0, column = 0)
 
     def executeRoll(self):
-        self.result = randint(1,20)
-        self.resultLabel.config(text = self.result)
-        print("updating roll..." , self.result)
+        result = randint(1,20)
+        self.resultLabel.config(text = result)
 
 tk = tkinter.Tk()
 app = Application(root = tk)
